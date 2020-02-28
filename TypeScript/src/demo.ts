@@ -1,8 +1,9 @@
 import decode from "./decode";
+import decodeBase64 from "./decodeBase64";
 import encode from "./encode";
 
 const blurhashElement = document.getElementById("blurhash") as HTMLInputElement;
-const canvas = document.getElementById("canvas") as HTMLCanvasElement;
+const canvas = document.getElementById("canvas") as HTMLImageElement;
 const originalCanvas = document.getElementById("original") as HTMLCanvasElement;
 const fileInput = document.getElementById("fileinput") as HTMLInputElement;
 const componentXElement = document.getElementById("x") as HTMLInputElement;
@@ -11,12 +12,16 @@ const componentYElement = document.getElementById("y") as HTMLInputElement;
 function render() {
   const blurhash = blurhashElement.value;
   if (blurhash) {
-    const pixels = decode(blurhash, 32, 32);
-    if (pixels) {
+    const base64 = decodeBase64(blurhash, 32, 32);
+    if (base64) {
+      console.log(base64);
+      canvas.src = base64;
+      /*
       const ctx = canvas.getContext("2d");
 
       const imageData = new ImageData(pixels, 32, 32);
       ctx.putImageData(imageData, 0, 0);
+*/
     }
   }
 }
